@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 强制隐藏 Mermaid SVG 中的 pattern 元素（斜线图案）*/
+@layer base {
+	svg pattern {
+		display: none !important;
+	}
+	
+	svg [fill^="url(#"] {
+		fill: none !important;
+	}
+}
+
+/* Code highlighting theme - minimal style */
+@layer base {
+	pre {
+		@apply bg-gray-50 dark:bg-gray-900 rounded-lg p-4 overflow-x-auto border border-gray-200 dark:border-gray-700;
+	}
+	
+	code {
+		@apply text-sm font-mono;
+	}
+	
+	:not(pre) > code {
+		@apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-pink-600 dark:text-pink-400;
+	}
+}
+
+/* Highlight.js minimal theme */
+.hljs {
+	@apply bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200;
+}
+
+.hljs-comment,
+.hljs-quote {
+	@apply text-gray-500 dark:text-gray-400 italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+	@apply text-gray-900 dark:text-gray-100 font-semibold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+	@apply text-blue-600 dark:text-blue-400;
+}
+
+.hljs-string,
+.hljs-doctag {
+	@apply text-green-600 dark:text-green-400;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+	@apply text-blue-700 dark:text-blue-300 font-semibold;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+	@apply text-purple-600 dark:text-purple-400;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+	@apply text-blue-500 dark:text-blue-300;
+}
+
+.hljs-regexp,
+.hljs-link {
+	@apply text-green-500 dark:text-green-300;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+	@apply text-pink-600 dark:text-pink-400;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+	@apply text-cyan-600 dark:text-cyan-400;
+}
+
+.hljs-meta {
+	@apply text-gray-600 dark:text-gray-400;
+}
+
+.hljs-deletion {
+	@apply bg-red-100 dark:bg-red-900;
+}
+
+.hljs-addition {
+	@apply bg-green-100 dark:bg-green-900;
+}
+
+.hljs-emphasis {
+	@apply italic;
+}
+
+.hljs-strong {
+	@apply font-bold;
+}
