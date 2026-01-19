@@ -4,6 +4,8 @@
 	import { markedHighlight } from 'marked-highlight';
 	import hljs from 'highlight.js';
 	import mermaid from 'mermaid';
+	import admonition from 'marked-admonition-extension';
+	import 'marked-admonition-extension/dist/index.css';
 
 	export let markdown = '';
 
@@ -11,7 +13,7 @@
 	let container;
 	let currentTheme = 'default';
 
-	// Configure marked with highlight.js
+	// Configure marked with highlight.js and admonition extension
 	marked.use(
 		markedHighlight({
 			langPrefix: 'hljs language-',
@@ -21,6 +23,9 @@
 			}
 		})
 	);
+	
+	// Add admonition extension support (pass the object directly, not as a function call)
+	marked.use(admonition);
 
 	function initMermaid() {
 		const isDark = document.documentElement.classList.contains('dark');
@@ -223,5 +228,106 @@
 		@apply max-w-full h-auto;
 		display: block;
 		overflow: hidden;
+	}
+
+	/* Dark theme support for admonitions */
+	:global(.dark .admonition) {
+		box-shadow: 0 0 0.4rem 0 rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-note) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-abstract) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-info) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-tip) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-success) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-question) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-warning) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-failure) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-danger) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-bug) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-example) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-quote) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-hint) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-caution) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-error) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark .admonition-attention) {
+		--color: rgba(255, 255, 255, 0.87);
+		--bg-color: #1e293b;
+		--shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3), 0 0 0 0.05rem rgba(255, 255, 255, 0.1);
 	}
 </style>

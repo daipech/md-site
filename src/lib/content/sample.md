@@ -116,6 +116,10 @@ sequenceDiagram
 
 使用 `npm install` 安装依赖，然后运行 `npm run dev` 启动开发服务器。
 
+!!! note
+    This is a note admonition.
+!!!
+
 ---
 
 这就是一个完整的示例页面！
