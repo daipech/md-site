@@ -1,8 +1,23 @@
 <script>
+	import { onMount } from 'svelte';
 	import MarkdownRenderer from '$lib/components/MarkdownRenderer.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import Button from '../lib/components/Button.svelte';
-	import sampleContent from '$lib/content/sample.md?raw';
+	
+	let markdown = '';
+	let loading = true;
+
+	onMount(async () => {
+		try {
+			const response = await fetch('/content/index.md');
+			markdown = await response.text();
+		} catch (error) {
+			console.error('加载 index.md 失败:', error);
+			markdown = '# 加载失败\n\n无法加载主页内容。';
+		} finally {
+			loading = false;
+		}
+	});
 </script>
 
 <svelte:head>
@@ -19,4 +34,10 @@
   </svelte:fragment>
 </Card>
 
-<MarkdownRenderer markdown={sampleContent} />
+{#if loading}
+	<div class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+		加载中...
+	</div>
+{:else}
+	<MarkdownRenderer {markdown} />
+{/if}
