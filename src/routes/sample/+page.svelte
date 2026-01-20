@@ -1,10 +1,11 @@
 <script>
 	import MarkdownRenderer from '$lib/components/MarkdownRenderer.svelte';
 	import sampleContent from '$lib/content/sample.md?raw';
+	import { getPageTitle } from '$lib/config.js';
 </script>
 
 <svelte:head>
-	<title>Sample - Markdown 静态站</title>
+	<title>{getPageTitle('Sample')}</title>
 	<meta name="description" content="Sample Markdown 示例页面" />
 </svelte:head>
 

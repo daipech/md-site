@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { Sun, Moon } from 'lucide-svelte';
+	import { siteConfig } from '$lib/config.js';
 	import '../app.css';
 
 	let darkMode = false;
@@ -53,7 +54,7 @@
 		<div class="max-w-4xl mx-auto px-4 py-6 md:px-8 lg:px-12">
 			<div class="flex justify-between items-start">
 				<div>
-					<h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Markdown 静态站</h1>
+					<h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{siteConfig.name}</h1>
 					<p class="text-gray-600 dark:text-gray-400 mt-2">极简风格 · 响应式设计</p>
 				</div>
 				<button

@@ -2,10 +2,12 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import MarkdownRenderer from '$lib/components/MarkdownRenderer.svelte';
+	import { getPageTitle } from '$lib/config.js';
 
 	let markdown = '';
 	let loading = true;
 	let error = null;
+	let pageTitle = '';
 
 	$: md_name = $page.params.md_name;
 
@@ -25,8 +27,13 @@
 			}
 			
 			markdown = await response.text();
+			
+			// 从markdown中提取第一个h1标题
+			const h1Match = markdown.match(/^#\s+(.+)$/m);
+			pageTitle = h1Match ? h1Match[1] : md_name;
 		} catch (err) {
 			error = err.message;
+			pageTitle = md_name;
 		} finally {
 			loading = false;
 		}
@@ -39,8 +46,8 @@
 </script>
 
 <svelte:head>
-	<title>{md_name} - Markdown 静态站</title>
-	<meta name="description" content={md_name} />
+	<title>{getPageTitle(pageTitle)}</title>
+	<meta name="description" content={pageTitle} />
 </svelte:head>
 
 {#if loading}
