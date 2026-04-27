@@ -117,6 +117,24 @@ sequenceDiagram
 
 使用 `npm install` 安装依赖，然后运行 `npm run dev` 启动开发服务器。
 
+## 数学公式
+
+行内公式：质能方程 $E = mc^2$，欧拉公式 $e^{i\pi} + 1 = 0$。
+
+块级公式：
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
+
+$$
+\frac{\partial^2 u}{\partial t^2} = c^2 \nabla^2 u
+$$
+
+$$
+\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+$$
+
 ## ECharts 图表示例
 
 在代码块中使用 `echarts` 语言标识，内容为 ECharts 的 JSON 配置（支持可选字段 `_height` 设置高度，默认 400px）。

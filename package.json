@@ -23,10 +23,12 @@
   "dependencies": {
     "echarts": "^6.0.0",
     "highlight.js": "^11.9.0",
+    "katex": "^0.16.45",
     "lucide-svelte": "^0.562.0",
     "marked": "^11.1.1",
     "marked-admonition-extension": "^0.0.4",
     "marked-highlight": "^2.1.0",
+    "marked-katex-extension": "^5.1.8",
     "mermaid": "^10.6.1"
   },
   "type": "module"

@@ -7,6 +7,8 @@
 	import admonition from 'marked-admonition-extension';
 	import 'marked-admonition-extension/dist/index.css';
 	import * as echarts from 'echarts';
+	import markedKatex from 'marked-katex-extension';
+	import 'katex/dist/katex.min.css';
 
 	export let markdown = '';
 
@@ -28,6 +30,9 @@
 	
 	// Add admonition extension support (pass the object directly, not as a function call)
 	marked.use(admonition);
+
+	// Add KaTeX math support
+	marked.use(markedKatex({ throwOnError: false }));
 
 	function initMermaid() {
 		const isDark = document.documentElement.classList.contains('dark');
