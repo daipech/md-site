@@ -110,6 +110,7 @@ sequenceDiagram
 | Markdown | ✅ | 完整支持 |
 | 代码高亮 | ✅ | 使用 highlight.js |
 | Mermaid | ✅ | 支持多种图表 |
+| ECharts | ✅ | 支持各种数据图表 |
 | 响应式 | ✅ | 移动端友好 |
 
 ## 行内代码
@@ -119,6 +120,67 @@ sequenceDiagram
 !!! note
     This is a note admonition.
 !!!
+
+## ECharts 图表示例
+
+在代码块中使用 `echarts` 语言标识，内容为 ECharts 的 JSON 配置（支持可选字段 `_height` 设置高度，默认 400px）。
+
+### 折线图
+
+```echarts
+{
+  "title": { "text": "月度访问量" },
+  "tooltip": { "trigger": "axis" },
+  "xAxis": { "type": "category", "data": ["1月","2月","3月","4月","5月","6月"] },
+  "yAxis": { "type": "value" },
+  "series": [{
+    "name": "访问量",
+    "type": "line",
+    "smooth": true,
+    "data": [820, 932, 901, 934, 1290, 1330],
+    "areaStyle": {}
+  }]
+}
+```
+
+### 柱状图
+
+```echarts
+{
+  "title": { "text": "各地区销售额" },
+  "tooltip": {},
+  "xAxis": { "data": ["北京","上海","广州","深圳","杭州","成都"] },
+  "yAxis": {},
+  "series": [{
+    "name": "销售额",
+    "type": "bar",
+    "data": [5000, 7200, 6100, 8300, 4900, 5600]
+  }]
+}
+```
+
+### 饼图
+
+```echarts
+{
+  "_height": 350,
+  "title": { "text": "流量来源", "left": "center" },
+  "tooltip": { "trigger": "item" },
+  "legend": { "orient": "vertical", "left": "left" },
+  "series": [{
+    "name": "来源",
+    "type": "pie",
+    "radius": "60%",
+    "data": [
+      { "value": 1048, "name": "搜索引擎" },
+      { "value": 735, "name": "直接访问" },
+      { "value": 580, "name": "邮件营销" },
+      { "value": 484, "name": "联盟广告" },
+      { "value": 300, "name": "视频广告" }
+    ]
+  }]
+}
+```
 
 ---
 

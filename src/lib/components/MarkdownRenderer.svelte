@@ -6,12 +6,14 @@
 	import mermaid from 'mermaid';
 	import admonition from 'marked-admonition-extension';
 	import 'marked-admonition-extension/dist/index.css';
+	import * as echarts from 'echarts';
 
 	export let markdown = '';
 
 	let content = '';
 	let container;
 	let currentTheme = 'default';
+	let chartInstances = [];
 
 	// Configure marked with highlight.js and admonition extension
 	marked.use(
@@ -59,6 +61,13 @@
 		}
 	}
 
+	function disposeCharts() {
+		chartInstances.forEach((chart) => {
+			try { chart.dispose(); } catch (e) {}
+		});
+		chartInstances = [];
+	}
+
 	// Configure mermaid
 	onMount(() => {
 		initMermaid();
@@ -75,10 +84,15 @@
 			attributeFilter: ['class']
 		});
 		
-		return () => observer.disconnect();
+		return () => {
+			observer.disconnect();
+			disposeCharts();
+		};
 	});
 
 	async function renderMarkdown() {
+		disposeCharts();
+
 		// First, render markdown to HTML
 		content = marked(markdown);
 
@@ -117,6 +131,38 @@
 					pre.replaceWith(div);
 				} catch (error) {
 					console.error('Mermaid rendering error:', error);
+				}
+			}
+
+			// Render ECharts diagrams
+			const echartsBlocks = container.querySelectorAll('code.language-echarts');
+			const isDark = document.documentElement.classList.contains('dark');
+
+			for (let i = 0; i < echartsBlocks.length; i++) {
+				const block = echartsBlocks[i];
+				const code = block.textContent;
+				const pre = block.parentElement;
+
+				try {
+					const option = JSON.parse(code);
+
+					const wrapper = document.createElement('div');
+					wrapper.className = 'echarts-diagram my-6 rounded-lg overflow-hidden';
+					const height = option._height || 400;
+					delete option._height;
+					wrapper.style.width = '100%';
+					wrapper.style.height = `${height}px`;
+
+					pre.replaceWith(wrapper);
+
+					const chart = echarts.init(wrapper, isDark ? 'dark' : null);
+					chart.setOption(option);
+					chartInstances.push(chart);
+
+					const resizeObserver = new ResizeObserver(() => chart.resize());
+					resizeObserver.observe(wrapper);
+				} catch (error) {
+					console.error('ECharts rendering error:', error);
 				}
 			}
 		}
