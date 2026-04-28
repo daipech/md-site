@@ -117,6 +117,18 @@ sequenceDiagram
 
 使用 `npm install` 安装依赖，然后运行 `npm run dev` 启动开发服务器。
 
+## 表情符号
+
+支持 GitHub/VSCode 风格的表情语法：
+
+| 语法 | 效果 | 语法 | 效果 |
+|------|------|------|------|
+| `:smile:` | :smile: | `:rocket:` | :rocket: |
+| `:tada:` | :tada: | `:fire:` | :fire: |
+| `:warning:` | :warning: | `:bulb:` | :bulb: |
+| `:heart:` | :heart: | `:star:` | :star: |
+| `:thumbsup:` | :thumbsup: | `:bug:` | :bug: |
+
 !!! note
     This is a note admonition.
 !!!

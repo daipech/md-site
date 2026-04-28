@@ -9,6 +9,8 @@
 	import * as echarts from 'echarts';
 	import markedKatex from 'marked-katex-extension';
 	import 'katex/dist/katex.min.css';
+	import { markedEmoji } from 'marked-emoji';
+	import { nameToEmoji } from 'gemoji';
 
 	export let markdown = '';
 
@@ -33,6 +35,9 @@
 
 	// Add KaTeX math support
 	marked.use(markedKatex({ throwOnError: false }));
+
+	// Add GitHub-style emoji support (:smile: :rocket: etc.)
+	marked.use(markedEmoji({ emojis: nameToEmoji, renderer: (token) => token.emoji }));
 
 	function initMermaid() {
 		const isDark = document.documentElement.classList.contains('dark');
