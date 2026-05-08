@@ -62,9 +62,11 @@
 	export let titleBg = 'bg-gray-50 dark:bg-gray-800';
 	export let footerBg = 'bg-gray-50 dark:bg-gray-800';
 	export let rounded = 'rounded-lg';
+	let className = '';
+	export { className as class };
 </script>
 
-<div class="card {rounded} border {borderColor} overflow-hidden bg-white dark:bg-gray-900 shadow-sm w-fit">
+<div class="card {rounded} border {borderColor} overflow-hidden bg-white dark:bg-gray-900 shadow-sm w-fit {className}">
 	{#if title || $$slots.title}
 		<div class="title-bar px-4 py-3 {titleBg} border-b {borderColor}">
 			<slot name="title">

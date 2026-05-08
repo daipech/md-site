@@ -1,25 +1,12 @@
-<script>
-	import { onMount } from 'svelte';
+<script context="module">
 	import { marked } from 'marked';
 	import { markedHighlight } from 'marked-highlight';
 	import hljs from 'highlight.js';
-	import mermaid from 'mermaid';
 	import admonition from 'marked-admonition-extension';
-	import 'marked-admonition-extension/dist/index.css';
-	import * as echarts from 'echarts';
-	import markedKatex from 'marked-katex-extension';
-	import 'katex/dist/katex.min.css';
 	import { markedEmoji } from 'marked-emoji';
 	import { nameToEmoji } from 'gemoji';
 
-	export let markdown = '';
-
-	let content = '';
-	let container;
-	let currentTheme = 'default';
-	let chartInstances = [];
-
-	// Configure marked with highlight.js and admonition extension
+	// Configure marked plugins once per module load (not per component instance)
 	marked.use(
 		markedHighlight({
 			langPrefix: 'hljs language-',
@@ -29,15 +16,26 @@
 			}
 		})
 	);
-	
-	// Add admonition extension support (pass the object directly, not as a function call)
 	marked.use(admonition);
-
-	// Add KaTeX math support
-	marked.use(markedKatex({ throwOnError: false }));
-
-	// Add GitHub-style emoji support (:smile: :rocket: etc.)
 	marked.use(markedEmoji({ emojis: nameToEmoji, renderer: (token) => token.emoji }));
+</script>
+
+<script>
+	import { onMount, afterUpdate } from 'svelte';
+	import mermaid from 'mermaid';
+	import 'marked-admonition-extension/dist/index.css';
+	import * as echarts from 'echarts';
+	import renderMathInElement from 'katex/contrib/auto-render';
+	import 'katex/dist/katex.min.css';
+
+	export let markdown = '';
+
+	let content = '';
+	let container;
+	let currentTheme = 'default';
+	let chartInstances = [];
+	let mounted = false;
+	let prevMarkdown = null;
 
 	function initMermaid() {
 		const isDark = document.documentElement.classList.contains('dark');
@@ -80,6 +78,8 @@
 
 	// Configure mermaid
 	onMount(() => {
+		prevMarkdown = markdown;
+		mounted = true;
 		initMermaid();
 		renderMarkdown();
 		
@@ -100,6 +100,13 @@
 		};
 	});
 
+	afterUpdate(() => {
+		if (mounted && markdown !== prevMarkdown) {
+			prevMarkdown = markdown;
+			renderMarkdown();
+		}
+	});
+
 	async function renderMarkdown() {
 		disposeCharts();
 
@@ -108,6 +115,18 @@
 
 		// Wait for DOM update
 		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		// Render math via KaTeX (works in table cells, paragraphs, etc.)
+		if (container) {
+			renderMathInElement(container, {
+				delimiters: [
+					{ left: '$$', right: '$$', display: true },
+					{ left: '$', right: '$', display: false },
+				],
+				throwOnError: false,
+				ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+			});
+		}
 
 		// Then render mermaid diagrams
 		if (container) {
@@ -178,9 +197,7 @@
 		}
 	}
 
-	$: if (markdown) {
-		renderMarkdown();
-	}
+
 </script>
 
 <article
